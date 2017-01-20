@@ -11,7 +11,17 @@
     tools:context="ch.hsr.se.mas.fahrplanapp.MainActivity">
 
     <TextView
+        android:id="@+id/helloworld"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Load"
+        android:id="@+id/buttonLoad"
+        android:layout_below="@+id/helloworld"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"/>
 </RelativeLayout>
