@@ -2,4 +2,8 @@
     <string name="app_name">FahrplanApp</string>
     <string name="directions">Verbindungen</string>
     <string name="about">Über</string>
+
+    <string name="tab_about_application">Applikation</string>
+    <string name="tab_about_developers">Entwickler</string>
+    <string name="about_text">AboutText</string>
 </resources>

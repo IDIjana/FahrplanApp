@@ -7,4 +7,13 @@
     <string name="action_settings">Settings</string>
     <string name="directions">Directions</string>
     <string name="about">About</string>
+
+    <string name="tab_about_application">Application</string>
+    <string name="tab_about_developers">Developers</string>
+
+    <string name="copyright">© 2017 – MAS SE 2015 – 2017</string>
+    <string name="about_text">
+        This app was programmed during the course \"SE for mobile applications\".\n
+        There is no guarantee for the correctness of the data. Please only use this app at your own risk.
+    </string>
 </resources>
