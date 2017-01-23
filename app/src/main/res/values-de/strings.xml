@@ -5,5 +5,9 @@
 
     <string name="tab_about_application">Applikation</string>
     <string name="tab_about_developers">Entwickler</string>
-    <string name="about_text">AboutText</string>
+    <string name="about_text">
+        Diese App wurde im Fach \"SE für mobile Applikationen\" entwickelt.\n
+        Es gibt keine Garantie, dass alle Daten korrekt sind. Bitte benutzen Sie die Applikation auf eigene Gefahr
+    </string>
+    <string name="button_search">Suche</string>
 </resources>

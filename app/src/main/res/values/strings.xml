@@ -16,4 +16,10 @@
         This app was programmed during the course \"SE for mobile applications\".\n
         There is no guarantee for the correctness of the data. Please only use this app at your own risk.
     </string>
+    <string name="button_search">Search</string>
+
+    <string-array name="departure_arrival">
+        <item>Departure</item>
+        <item>Arrival</item>
+    </string-array>
 </resources>
