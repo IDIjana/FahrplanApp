@@ -1,10 +1,8 @@
 package ch.hsr.se.mas.fahrplanapp;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -15,11 +13,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import ch.schoeb.opendatatransport.IOpenTransportRepository;
-import ch.schoeb.opendatatransport.OpenDataTransportException;
-import ch.schoeb.opendatatransport.OpenTransportRepositoryFactory;
-import ch.schoeb.opendatatransport.model.ConnectionList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
@@ -82,7 +75,6 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -107,28 +99,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void LoadConnections() {
-        new LoaderTask().execute();
-    }
-
-    private class LoaderTask extends AsyncTask<Void, Void, ConnectionList> {
-        @Override
-        protected ConnectionList doInBackground(Void... params) {
-            // Get Repository
-            IOpenTransportRepository repo = OpenTransportRepositoryFactory.CreateOnlineOpenTransportRepository();
-            ConnectionList connectionList = null;
-            try {
-                connectionList = repo.searchConnections("Buchs SG", "Zürich HB");
-            } catch (OpenDataTransportException e) {
-                e.printStackTrace();
-            }
-
-            return connectionList;
-        }
-
-
-        @Override
-        protected void onPostExecute(ConnectionList connectionList) {
-            Log.d("ConnectionList", connectionList.toString());
-        }
+        new SearchConnectionsAsyncTask().execute();
     }
 }
