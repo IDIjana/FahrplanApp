@@ -24,14 +24,14 @@ public class AboutActivity extends AppCompatActivity {
         viewPager.setOffscreenPageLimit(2);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.about_sliding_tabs);
-        tabLayout.setupWithViewPager(viewPager);;
+        tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
     }
 
-    public class AboutFragmentPagerAdapter extends FragmentPagerAdapter {
+    protected class AboutFragmentPagerAdapter extends FragmentPagerAdapter {
         private Context context;
 
-        public AboutFragmentPagerAdapter(FragmentManager fm, Context context) {
+        protected AboutFragmentPagerAdapter(FragmentManager fm, Context context) {
             super(fm);
             this.context = context;
         }
