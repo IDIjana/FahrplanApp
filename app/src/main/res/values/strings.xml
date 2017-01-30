@@ -17,12 +17,11 @@
         There is no guarantee for the correctness of the data. Please only use this app at your own risk.
     </string>
     <string name="button_search">Search</string>
-
-    <string-array name="departure_arrival">
-        <item>Departure</item>
-        <item>Arrival</item>
-    </string-array>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="departure_search">Departure</string>
+    <string name="arrival_search">Arrival</string>
+    <string name="search_hint_from">From</string>
+    <string name="search_hint_to">To</string>
+    <string name="date_format">dd-MM-yyyy</string>
+    <string name="time_format">HH:mm</string>
 </resources>

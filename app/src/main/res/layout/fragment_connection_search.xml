@@ -12,9 +12,10 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
-        android:text="From"
-        android:labelFor="@id/text_from"
-        tools:ignore="HardcodedText" />
+        android:hint="@string/search_hint_from"
+        android:inputType="text"
+        android:imeOptions="actionNext"
+        android:labelFor="@id/text_from"/>
 
     <AutoCompleteTextView
         android:id="@+id/text_to"
@@ -24,34 +25,43 @@
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/text_from"
-        android:text="To"
-        android:labelFor="@id/text_to"
-        tools:ignore="HardcodedText" />
+        android:hint="@string/search_hint_to"
+        android:inputType="text"
+        android:imeOptions="actionNext"
+        android:labelFor="@id/text_to"/>
 
-    <Spinner
-        android:layout_width="100dp"
+    <LinearLayout
+        android:id="@+id/connection_search_options"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/text_to"
+        android:orientation="horizontal"
         android:layout_alignParentStart="true"
-        android:id="@+id/selector_departure_arrival" />
+        android:layout_below="@id/text_to">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="12:00"
-        android:id="@+id/button_time_selection"
-        android:layout_toEndOf="@id/selector_departure_arrival"
-        android:layout_below="@id/text_to"
-        tools:ignore="HardcodedText" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/departure_search"
+            android:id="@+id/button_time_reference"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="01.01.2017"
-        android:id="@+id/button_date_selection"
-        android:layout_toEndOf="@id/button_time_selection"
-        android:layout_below="@id/text_to"
-        tools:ignore="HardcodedText" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="12:00"
+            android:id="@+id/button_time_picker"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="01.01.2017"
+            android:id="@+id/button_date_picker"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
 
     <Button
         android:layout_width="wrap_content"
@@ -60,7 +70,7 @@
         android:id="@+id/button_search"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_below="@id/button_time_selection"
+        android:layout_below="@id/connection_search_options"
         tools:ignore="HardcodedText" />
 
 </RelativeLayout>

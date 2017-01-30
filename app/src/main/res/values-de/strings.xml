@@ -10,4 +10,10 @@
         Es gibt keine Garantie, dass alle Daten korrekt sind. Bitte benutzen Sie die Applikation auf eigene Gefahr
     </string>
     <string name="button_search">Suche</string>
+    <string name="departure_search">Abfahrt</string>
+    <string name="arrival_search">Ankunft</string>
+    <string name="search_hint_from">Von</string>
+    <string name="search_hint_to">Nach</string>
+    <string name="date_format">dd.MM.yyyy</string>
+    <string name="time_format">HH:mm</string>
 </resources>
