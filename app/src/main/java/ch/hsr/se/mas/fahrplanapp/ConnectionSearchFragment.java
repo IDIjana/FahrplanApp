@@ -70,7 +70,6 @@ public class ConnectionSearchFragment extends Fragment {
                 btnTimePicker.setText(timeFormatter.format(searchDate.getTime()));
             }
         }, searchDate.get(Calendar.HOUR_OF_DAY), searchDate.get(Calendar.MINUTE), true);
-
     }
 
     @Override
@@ -115,6 +114,9 @@ public class ConnectionSearchFragment extends Fragment {
 
         textFrom = (AutoCompleteTextView) view.findViewById(R.id.text_from);
         textTo = (AutoCompleteTextView) view.findViewById(R.id.text_to);
+
+        View resultView = view.findViewById(R.id.fragment_search);
+        new SearchStationsAsyncTask(resultView).execute();
 
         return view;
     }
