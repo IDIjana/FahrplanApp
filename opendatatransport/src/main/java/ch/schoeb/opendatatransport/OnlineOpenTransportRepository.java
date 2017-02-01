@@ -81,12 +81,14 @@ public class OnlineOpenTransportRepository implements IOpenTransportRepository {
             }
 
             if (time != null && time != "") {
-                url += "&date=" + time;
+                url += "&time=" + time;
             }
 
             if (isArrivalTime) {
                 url += "&isArrivalTime=1";
             }
+
+            url += "&limit=6";
 
         } catch (UnsupportedEncodingException e) {
 

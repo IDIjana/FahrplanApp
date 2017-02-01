@@ -1,5 +1,6 @@
 package ch.hsr.se.mas.fahrplanapp;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -86,8 +88,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onSearchStarted() {
-        new SearchConnectionsAsyncTask().execute();
+    public void onSearchStarted(String from, String to, String date, String time, Boolean isArrivalTime) {
+        View resultView = findViewById(R.id.fragment_search_results);
+        new SearchConnectionsAsyncTask(resultView).execute(from, to, date, time, String.valueOf(isArrivalTime));
     }
 
     @Override

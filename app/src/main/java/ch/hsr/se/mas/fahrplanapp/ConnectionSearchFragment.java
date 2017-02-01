@@ -5,9 +5,11 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
@@ -19,7 +21,7 @@ import java.util.Locale;
 
 public class ConnectionSearchFragment extends Fragment {
     private Calendar searchDate;
-    private boolean departureSearch;
+    private boolean isArrivalTime;
     private DatePickerDialog connectionDatePickerDialog;
     private TimePickerDialog connectionTimePickerDialog;
     private SimpleDateFormat dateFormatter;
@@ -30,17 +32,21 @@ public class ConnectionSearchFragment extends Fragment {
     Button btnDatePicker;
     Button btnTimePicker;
 
+    AutoCompleteTextView textFrom;
+    AutoCompleteTextView textTo;
+
     private ConnectionSearchFragmentInteractionListener mListener;
 
     public ConnectionSearchFragment() {
         searchDate = Calendar.getInstance();
-        departureSearch = true;
+        isArrivalTime = false;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Initilize the date- and time-picker to store the selected time and date
         dateFormatter = new SimpleDateFormat(getString(R.string.date_format), Locale.getDefault());
         timeFormatter = new SimpleDateFormat(getString(R.string.time_format), Locale.getDefault());
 
@@ -71,6 +77,7 @@ public class ConnectionSearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_connection_search, container, false);
 
+        // Get all elements for later use so we do not have to search them every time
         btnSearch = (Button) view.findViewById(R.id.button_search);
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +93,7 @@ public class ConnectionSearchFragment extends Fragment {
                 onTimeReferenceButtonPressed();
             }
         });
+        setReferenceSelectionButtonText();
 
         btnDatePicker = (Button) view.findViewById(R.id.button_date_picker);
         btnDatePicker.setOnClickListener(new View.OnClickListener() {
@@ -105,16 +113,24 @@ public class ConnectionSearchFragment extends Fragment {
         });
         btnTimePicker.setText(timeFormatter.format(searchDate.getTime()));
 
+        textFrom = (AutoCompleteTextView) view.findViewById(R.id.text_from);
+        textTo = (AutoCompleteTextView) view.findViewById(R.id.text_to);
+
         return view;
     }
 
     public void onTimeReferenceButtonPressed() {
         // Swap reference from departure to arrival and vice versa
-        departureSearch = !departureSearch;
-        if (departureSearch) {
-            btnTimeReferenceSelection.setText(getString(R.string.departure_search));
-        } else {
+        isArrivalTime = !isArrivalTime;
+        setReferenceSelectionButtonText();
+    }
+
+    private void setReferenceSelectionButtonText() {
+        // Sets the button text depending on the selection of the user
+        if (isArrivalTime) {
             btnTimeReferenceSelection.setText(getString(R.string.arrival_search));
+        } else {
+            btnTimeReferenceSelection.setText(getString(R.string.departure_search));
         }
     }
 
@@ -127,8 +143,21 @@ public class ConnectionSearchFragment extends Fragment {
     }
 
     public void onSearchButtonPressed() {
+        SimpleDateFormat searchDateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String fromLocation = textFrom.getText().toString();
+        String toLocation = textTo.getText().toString();
+        String time = timeFormatter.format(searchDate.getTime());
+        String date = searchDateFormatter.format(searchDate.getTime());
+
+        Log.d("From: ", fromLocation);
+        Log.d("To: ", toLocation);
+        Log.d("Time: ", time);
+        Log.d("Date: ", date);
+        Log.d("Is arrival time: ", Boolean.toString(isArrivalTime));
+
         if (mListener != null) {
-            mListener.onSearchStarted();
+            // Notice parent activity that the user wants to search connections
+            mListener.onSearchStarted( fromLocation,toLocation,date,time, isArrivalTime);
         }
     }
 
@@ -150,6 +179,6 @@ public class ConnectionSearchFragment extends Fragment {
     }
 
     public interface ConnectionSearchFragmentInteractionListener {
-        void onSearchStarted();
+        void onSearchStarted(String from, String to, String date, String time, Boolean isArrivalTime);
     }
 }
