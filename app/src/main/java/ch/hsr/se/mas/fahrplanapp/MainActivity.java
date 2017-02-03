@@ -1,7 +1,10 @@
 package ch.hsr.se.mas.fahrplanapp;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -12,11 +15,19 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
+
+
+import ch.schoeb.opendatatransport.model.ConnectionList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         ConnectionSearchFragment.ConnectionSearchFragmentInteractionListener,
-        ConnectionOverviewFragment.OnFragmentInteractionListener{
+        ConnectionOverviewFragment.OnFragmentInteractionListener {
+
+    private ConnectionOverviewAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +45,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
     }
 
     @Override
@@ -67,7 +79,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        switch (id){
+        switch (id) {
             case R.id.directions:
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
@@ -86,8 +98,21 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onSearchStarted() {
-        new SearchConnectionsAsyncTask().execute();
+    public void onSearchStarted(Search search) {
+        SearchConnectionsAsyncTask task = new SearchConnectionsAsyncTask(search);
+        ConnectionList connections;
+        try {
+            connections = task.execute().get();
+            adapter = new ConnectionOverviewAdapter(this, connections);
+            View appBar = findViewById(R.id.appbar);
+            View content = appBar.findViewById(R.id.content_main);
+            ListView list = (ListView) content.findViewById(R.id.fragment_search_results);
+            list.setAdapter(adapter);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

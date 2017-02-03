@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.text.SimpleDateFormat;
@@ -24,6 +25,8 @@ public class ConnectionSearchFragment extends Fragment {
     private TimePickerDialog connectionTimePickerDialog;
     private SimpleDateFormat dateFormatter;
     private SimpleDateFormat timeFormatter;
+    private TextView txtFromStation;
+    private TextView txtToStation;
 
     Button btnSearch;
     Button btnTimeReferenceSelection;
@@ -65,6 +68,8 @@ public class ConnectionSearchFragment extends Fragment {
             }
         }, searchDate.get(Calendar.HOUR_OF_DAY), searchDate.get(Calendar.MINUTE), true);
 
+
+
     }
 
     @Override
@@ -105,6 +110,9 @@ public class ConnectionSearchFragment extends Fragment {
         });
         btnTimePicker.setText(timeFormatter.format(searchDate.getTime()));
 
+        txtFromStation = (TextView) view.findViewById(R.id.text_from);
+        txtToStation = (TextView) view.findViewById(R.id.text_to);
+
         return view;
     }
 
@@ -128,7 +136,15 @@ public class ConnectionSearchFragment extends Fragment {
 
     public void onSearchButtonPressed() {
         if (mListener != null) {
-            mListener.onSearchStarted();
+            Search search = new Search();
+            search.setFromStation(txtFromStation.getText().toString());
+            search.setToStation(txtToStation.getText().toString());
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("yyy-MM-dd", Locale.getDefault());
+            search.setDate(dateFormatter.format(searchDate.getTime()));
+            search.setTime(btnTimePicker.getText().toString());
+            search.setArrivalTime(!departureSearch);
+
+            mListener.onSearchStarted(search);
         }
     }
 
@@ -150,6 +166,6 @@ public class ConnectionSearchFragment extends Fragment {
     }
 
     public interface ConnectionSearchFragmentInteractionListener {
-        void onSearchStarted();
+        void onSearchStarted(Search search);
     }
 }
