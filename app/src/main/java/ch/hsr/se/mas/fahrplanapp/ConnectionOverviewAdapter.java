@@ -73,7 +73,9 @@ public class ConnectionOverviewAdapter extends BaseAdapter {
         txtEnd.setText(tf.format(arrival).trim());
 
         TextView txtDuration = (TextView) view.findViewById(R.id.duration);
-        txtDuration.setText(connection.getDuration().toString().replace("00d","").trim());
+        String duration = connection.getDuration().toString().replace("00d","").trim();
+        duration= duration.substring(0, duration.length()-3);
+        txtDuration.setText(duration);
 
         return view;
     }
