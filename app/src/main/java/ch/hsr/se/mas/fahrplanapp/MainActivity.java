@@ -1,7 +1,6 @@
 package ch.hsr.se.mas.fahrplanapp;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,8 +15,7 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        ConnectionSearchFragment.ConnectionSearchFragmentInteractionListener,
-        ConnectionOverviewFragment.OnFragmentInteractionListener {
+        ConnectionSearchFragment.ConnectionSearchFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,10 +91,5 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onSearchStarted(Search search) {
         new SearchConnectionsAsyncTask(this, search).execute();
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 }
