@@ -9,17 +9,11 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 
 import ch.schoeb.opendatatransport.model.Connection;
 import ch.schoeb.opendatatransport.model.ConnectionList;
-
-/**
- * Created by Alexandra on 31.01.2017.
- */
 
 
 public class ConnectionOverviewAdapter extends BaseAdapter {
@@ -64,8 +58,6 @@ public class ConnectionOverviewAdapter extends BaseAdapter {
 
         Date departure = new Date(connection.getFrom().getDepartureTimestamp().longValue()*1000);
         TextView txtStart = (TextView) view.findViewById(R.id.start);
-
-        String start = tf.format(departure).trim();
         txtStart.setText(tf.format(departure).trim());
 
         Date arrival = new Date(Long.parseLong(connection.getTo().getArrivalTimestamp())*1000);
@@ -73,7 +65,7 @@ public class ConnectionOverviewAdapter extends BaseAdapter {
         txtEnd.setText(tf.format(arrival).trim());
 
         TextView txtDuration = (TextView) view.findViewById(R.id.duration);
-        String duration = connection.getDuration().toString().replace("00d","").trim();
+        String duration = connection.getDuration().replace("00d","").trim();
         duration= duration.substring(0, duration.length()-3);
         txtDuration.setText(duration);
 

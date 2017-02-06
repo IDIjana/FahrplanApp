@@ -1,9 +1,5 @@
 package ch.hsr.se.mas.fahrplanapp;
 
-/**
- * Created by Alexandra on 31.01.2017.
- */
-
 public class Search {
 
     private String fromStation;

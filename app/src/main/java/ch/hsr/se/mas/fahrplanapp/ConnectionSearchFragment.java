@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.text.SimpleDateFormat;
@@ -46,7 +45,7 @@ public class ConnectionSearchFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Initilize the date- and time-picker to store the selected time and date
+        // Initialize the date- and time-picker to store the selected time and date
         dateFormatter = new SimpleDateFormat(getString(R.string.date_format), Locale.getDefault());
         timeFormatter = new SimpleDateFormat(getString(R.string.time_format), Locale.getDefault());
 
@@ -70,8 +69,6 @@ public class ConnectionSearchFragment extends Fragment {
                 btnTimePicker.setText(timeFormatter.format(searchDate.getTime()));
             }
         }, searchDate.get(Calendar.HOUR_OF_DAY), searchDate.get(Calendar.MINUTE), true);
-
-
     }
 
     @Override
