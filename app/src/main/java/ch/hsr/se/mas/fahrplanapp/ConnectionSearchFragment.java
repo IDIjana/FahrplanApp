@@ -9,7 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AutoCompleteTextView;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
@@ -17,6 +17,8 @@ import android.widget.TimePicker;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+
+import ch.schoeb.opendatatransport.model.Station;
 
 
 public class ConnectionSearchFragment extends Fragment {
@@ -26,8 +28,8 @@ public class ConnectionSearchFragment extends Fragment {
     private TimePickerDialog connectionTimePickerDialog;
     private SimpleDateFormat dateFormatter;
     private SimpleDateFormat timeFormatter;
-    private AutoCompleteTextView txtFromStation;
-    private AutoCompleteTextView txtToStation;
+    private DelayAutoCompleteTextView txtFromStation;
+    private DelayAutoCompleteTextView txtToStation;
 
     Button btnSearch;
     Button btnTimeReferenceSelection;
@@ -84,8 +86,6 @@ public class ConnectionSearchFragment extends Fragment {
             }
         });
 
-
-
         btnTimeReferenceSelection = (Button) view.findViewById(R.id.button_time_reference);
         btnTimeReferenceSelection.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,11 +113,31 @@ public class ConnectionSearchFragment extends Fragment {
         });
         btnTimePicker.setText(timeFormatter.format(searchDate.getTime()));
 
-        txtFromStation = (AutoCompleteTextView) view.findViewById(R.id.text_from);
-        txtToStation = (AutoCompleteTextView) view.findViewById(R.id.text_to);
+        StationAutoCompleteAdapter adapter = new StationAutoCompleteAdapter(getContext());
+        txtFromStation = (DelayAutoCompleteTextView) view.findViewById(R.id.text_from);
+        txtFromStation.setThreshold(3);
+        txtFromStation.setAdapter(adapter);
+        txtFromStation.setLoadingIndicator((android.widget.ProgressBar) view.findViewById(R.id.pb_loading_indicator_from));
+        txtFromStation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Station station = (Station) adapterView.getItemAtPosition(position);
+                txtFromStation.setText(station.getName());
+            }
+        });
 
-        View resultView = view.findViewById(R.id.fragment_search);
-        new SearchStationsAsyncTask(resultView).execute();
+        txtToStation = (DelayAutoCompleteTextView) view.findViewById(R.id.text_to);
+        txtToStation.setThreshold(3);
+        txtToStation.setAdapter(adapter);
+        txtToStation.setLoadingIndicator((android.widget.ProgressBar) view.findViewById(R.id.pb_loading_indicator_to));
+        txtToStation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Station station = (Station) adapterView.getItemAtPosition(position);
+                txtToStation.setText(station.getName());
+            }
+        });
+
         return view;
     }
 
