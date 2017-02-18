@@ -1,4 +1,7 @@
 <resources>
+    <string name="date_format">dd.MM.yyyy</string>
+    <string name="time_format">HH:mm</string>
+
     <string name="navigation_drawer_open">Öffne Navigation</string>
     <string name="navigation_drawer_close">Schliesse Navigation</string>
 
@@ -18,8 +21,6 @@
     <string name="arrival_search">Ankunft</string>
     <string name="search_hint_from">Von</string>
     <string name="search_hint_to">Nach</string>
-    <string name="search_in_progress">Lade Verbindungen...</string>
-
-    <string name="date_format">dd.MM.yyyy</string>
-    <string name="time_format">HH:mm</string>
+    <string name="search_in_progress">Lade Verbindungen…</string>
+    <string name="tooltip_switch_stations">Stationen tauschen</string>
 </resources>

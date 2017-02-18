@@ -17,32 +17,33 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_button_switch"/>
-
-        <TextView
-            android:id="@+id/label_from"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:text="@string/search_hint_from"/>
+            android:src="@drawable/ic_button_switch"
+            android:contentDescription="@string/tooltip_switch_stations" />
 
         <FrameLayout
             android:id="@+id/autocomplete_from"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/label_from"
+            android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:layout_toStartOf="@id/button_switch"
             android:layout_centerHorizontal="true">
 
-            <ch.hsr.se.mas.fahrplanapp.DelayAutoCompleteTextView
-                android:id="@+id/text_from"
-                android:inputType="textCapSentences"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/text_from_wrapper"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:imeOptions="flagNoExtractUi|actionSearch"
-                android:labelFor="@id/label_from" />
+                android:layout_height="wrap_content">
+
+                <ch.hsr.se.mas.fahrplanapp.DelayAutoCompleteTextView
+                    android:id="@+id/text_from"
+                    android:inputType="textCapSentences"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="flagNoExtractUi|actionSearch"
+                    android:labelFor="@id/text_from"
+                    android:hint="@string/search_hint_from"/>
+
+            </android.support.design.widget.TextInputLayout>
 
             <ProgressBar
                 android:id="@+id/pb_loading_indicator_from"
@@ -53,30 +54,30 @@
                 android:visibility="gone"/>
         </FrameLayout>
 
-        <TextView
-            android:id="@+id/label_to"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/autocomplete_from"
-            android:layout_alignParentStart="true"
-            android:text="@string/search_hint_to"/>
-
         <FrameLayout
             android:id="@+id/autocomplete_to"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/label_to"
+            android:layout_below="@id/autocomplete_from"
             android:layout_alignParentStart="true"
             android:layout_toStartOf="@id/button_switch"
             android:layout_centerHorizontal="true">
 
-            <ch.hsr.se.mas.fahrplanapp.DelayAutoCompleteTextView
-                android:id="@+id/text_to"
-                android:inputType="textCapSentences"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/text_to_wrapper"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:imeOptions="flagNoExtractUi|actionSearch"
-                android:labelFor="@id/label_to"/>
+                android:layout_height="wrap_content">
+
+                <ch.hsr.se.mas.fahrplanapp.DelayAutoCompleteTextView
+                    android:id="@+id/text_to"
+                    android:inputType="textCapSentences"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="flagNoExtractUi|actionSearch"
+                    android:labelFor="@id/text_to"
+                    android:hint="@string/search_hint_to"/>
+
+            </android.support.design.widget.TextInputLayout>
 
             <ProgressBar
                 android:id="@+id/pb_loading_indicator_to"

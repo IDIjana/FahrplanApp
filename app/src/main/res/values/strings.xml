@@ -2,6 +2,9 @@
     <string name="app_name">GIRIDAB</string>
     <string name="copyright">© 2017 – MAS SE 2015 – 2017</string>
 
+    <string name="date_format">dd-MM-yyyy</string>
+    <string name="time_format">HH:mm</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -21,8 +24,6 @@
     <string name="arrival_search">Arrival</string>
     <string name="search_hint_from">From</string>
     <string name="search_hint_to">To</string>
-    <string name="search_in_progress">Loading connections...</string>
-
-    <string name="date_format">dd-MM-yyyy</string>
-    <string name="time_format">HH:mm</string>
+    <string name="search_in_progress">Loading connections…</string>
+    <string name="tooltip_switch_stations">Switch stations</string>
 </resources>
