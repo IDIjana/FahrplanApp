@@ -1,6 +1,7 @@
 package ch.hsr.se.mas.fahrplanapp;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -14,6 +15,8 @@ import ch.schoeb.opendatatransport.model.ConnectionList;
 public class SearchConnectionsAsyncTask extends AsyncTask<Void, Void, ConnectionList> {
     private Search search;
     private Context context;
+
+    protected ProgressDialog progressDialog;
 
     public SearchConnectionsAsyncTask(Context context, Search search) {
         super();
@@ -37,11 +40,21 @@ public class SearchConnectionsAsyncTask extends AsyncTask<Void, Void, Connection
     }
 
     @Override
+    protected void onPreExecute()
+    {
+        super.onPreExecute();
+        progressDialog = new ProgressDialog(this.context);
+        progressDialog.setMessage(((Activity) this.context).getString(R.string.search_in_progress));
+        progressDialog.show();
+    }
+
+    @Override
     protected void onPostExecute(ConnectionList connectionList) {
         Log.d("ConnectionList", connectionList.toString());
 
-        ConnectionOverviewAdapter adapter = new ConnectionOverviewAdapter(context, connectionList);
-        ListView list = (ListView) ((Activity) context).findViewById(R.id.fragment_search_results);
+        ConnectionOverviewAdapter adapter = new ConnectionOverviewAdapter(this.context, connectionList);
+        ListView list = (ListView) ((Activity) this.context).findViewById(R.id.fragment_search_results);
         list.setAdapter(adapter);
+        progressDialog.dismiss();
     }
 }

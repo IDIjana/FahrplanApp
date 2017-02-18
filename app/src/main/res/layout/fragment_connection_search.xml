@@ -4,59 +4,89 @@
     android:layout_height="match_parent"
     tools:context="ch.hsr.se.mas.fahrplanapp.ConnectionSearchFragment">
 
-    <FrameLayout
-        android:id="@+id/autocomplete_from"
+    <RelativeLayout
+        android:id="@+id/search_form"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true">
+        android:layout_alignParentStart="true">
 
-        <ch.hsr.se.mas.fahrplanapp.DelayAutoCompleteTextView
-            android:id="@+id/text_from"
-            android:inputType="textCapSentences"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:imeOptions="flagNoExtractUi|actionSearch"
-            android:hint="@string/search_hint_from"
-            android:labelFor="@id/text_from"/>
-
-        <ProgressBar
-            android:id="@+id/pb_loading_indicator_from"
-            style="?android:attr/progressBarStyleSmall"
+        <ImageButton
+            android:id="@+id/button_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|right"
-            android:visibility="gone"/>
-    </FrameLayout>
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_button_switch"/>
 
-    <FrameLayout
-        android:id="@+id/autocomplete_to"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/autocomplete_from"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true">
-
-        <ch.hsr.se.mas.fahrplanapp.DelayAutoCompleteTextView
-            android:id="@+id/text_to"
-            android:inputType="textCapSentences"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:imeOptions="flagNoExtractUi|actionSearch"
-            android:hint="@string/search_hint_to"
-            android:labelFor="@id/text_to"/>
-
-        <ProgressBar
-            android:id="@+id/pb_loading_indicator_to"
-            style="?android:attr/progressBarStyleSmall"
+        <TextView
+            android:id="@+id/label_from"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|right"
-            android:visibility="gone"/>
-    </FrameLayout>
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:text="@string/search_hint_from"/>
+
+        <FrameLayout
+            android:id="@+id/autocomplete_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/label_from"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/button_switch"
+            android:layout_centerHorizontal="true">
+
+            <ch.hsr.se.mas.fahrplanapp.DelayAutoCompleteTextView
+                android:id="@+id/text_from"
+                android:inputType="textCapSentences"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="flagNoExtractUi|actionSearch"
+                android:labelFor="@id/label_from" />
+
+            <ProgressBar
+                android:id="@+id/pb_loading_indicator_from"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:visibility="gone"/>
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/label_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/autocomplete_from"
+            android:layout_alignParentStart="true"
+            android:text="@string/search_hint_to"/>
+
+        <FrameLayout
+            android:id="@+id/autocomplete_to"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/label_to"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/button_switch"
+            android:layout_centerHorizontal="true">
+
+            <ch.hsr.se.mas.fahrplanapp.DelayAutoCompleteTextView
+                android:id="@+id/text_to"
+                android:inputType="textCapSentences"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="flagNoExtractUi|actionSearch"
+                android:labelFor="@id/label_to"/>
+
+            <ProgressBar
+                android:id="@+id/pb_loading_indicator_to"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:visibility="gone"/>
+        </FrameLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/connection_search_options"
@@ -64,14 +94,15 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_alignParentStart="true"
-        android:layout_below="@id/autocomplete_to">
+        android:layout_below="@id/search_form">
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/departure_search"
-            android:id="@+id/button_time_reference"/>
+            android:id="@+id/button_time_reference"
+            tools:ignore="ButtonStyle" />
 
         <Button
             android:layout_width="0dp"
@@ -79,7 +110,7 @@
             android:layout_weight="1"
             android:text="12:00"
             android:id="@+id/button_time_picker"
-            tools:ignore="HardcodedText" />
+            tools:ignore="ButtonStyle,HardcodedText" />
 
         <Button
             android:layout_width="0dp"
@@ -87,7 +118,7 @@
             android:layout_weight="1"
             android:text="01.01.2017"
             android:id="@+id/button_date_picker"
-            tools:ignore="HardcodedText" />
+            tools:ignore="ButtonStyle,HardcodedText" />
 
     </LinearLayout>
 
@@ -98,6 +129,7 @@
         android:id="@+id/button_search"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
+        android:drawableStart="@drawable/ic_button_search"
         android:layout_below="@id/connection_search_options"/>
 
 </RelativeLayout>

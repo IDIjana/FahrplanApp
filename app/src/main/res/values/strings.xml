@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">TimetableApp</string>
+    <string name="app_name">GIRIDAB</string>
+    <string name="copyright">© 2017 – MAS SE 2015 – 2017</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -10,18 +11,18 @@
 
     <string name="tab_about_application">Application</string>
     <string name="tab_about_developers">Developers</string>
-
-    <string name="copyright">© 2017 – MAS SE 2015 – 2017</string>
     <string name="about_text">
         This app was programmed during the course \"SE for mobile applications\".\n
         There is no guarantee for the correctness of the data. Please only use this app at your own risk.
     </string>
+
     <string name="button_search">Search</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="departure_search">Departure</string>
     <string name="arrival_search">Arrival</string>
     <string name="search_hint_from">From</string>
     <string name="search_hint_to">To</string>
+    <string name="search_in_progress">Loading connections...</string>
+
     <string name="date_format">dd-MM-yyyy</string>
     <string name="time_format">HH:mm</string>
 </resources>

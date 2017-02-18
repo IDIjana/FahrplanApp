@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.TimePicker;
 
 import java.text.SimpleDateFormat;
@@ -30,11 +31,13 @@ public class ConnectionSearchFragment extends Fragment {
     private SimpleDateFormat timeFormatter;
     private DelayAutoCompleteTextView txtFromStation;
     private DelayAutoCompleteTextView txtToStation;
+    private static final int THRESHOLD = 2;
 
     Button btnSearch;
     Button btnTimeReferenceSelection;
     Button btnDatePicker;
     Button btnTimePicker;
+    ImageButton btnSwitch;
 
     private ConnectionSearchFragmentInteractionListener mListener;
 
@@ -95,6 +98,14 @@ public class ConnectionSearchFragment extends Fragment {
         });
         setReferenceSelectionButtonText();
 
+        btnSwitch = (ImageButton) view.findViewById(R.id.button_switch);
+        btnSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSwitchButtonPressed();
+            }
+        });
+
         btnDatePicker = (Button) view.findViewById(R.id.button_date_picker);
         btnDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,26 +126,30 @@ public class ConnectionSearchFragment extends Fragment {
 
         StationAutoCompleteAdapter adapter = new StationAutoCompleteAdapter(getContext());
         txtFromStation = (DelayAutoCompleteTextView) view.findViewById(R.id.text_from);
-        txtFromStation.setThreshold(3);
+        txtFromStation.setThreshold(THRESHOLD);
         txtFromStation.setAdapter(adapter);
         txtFromStation.setLoadingIndicator((android.widget.ProgressBar) view.findViewById(R.id.pb_loading_indicator_from));
         txtFromStation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Station station = (Station) adapterView.getItemAtPosition(position);
+                txtFromStation.setThreshold(1000);
                 txtFromStation.setText(station.getName());
+                txtFromStation.setThreshold(THRESHOLD);
             }
         });
 
         txtToStation = (DelayAutoCompleteTextView) view.findViewById(R.id.text_to);
-        txtToStation.setThreshold(3);
+        txtToStation.setThreshold(THRESHOLD);
         txtToStation.setAdapter(adapter);
         txtToStation.setLoadingIndicator((android.widget.ProgressBar) view.findViewById(R.id.pb_loading_indicator_to));
         txtToStation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Station station = (Station) adapterView.getItemAtPosition(position);
+                txtToStation.setThreshold(1000);
                 txtToStation.setText(station.getName());
+                txtToStation.setThreshold(THRESHOLD);
             }
         });
 
@@ -177,17 +192,30 @@ public class ConnectionSearchFragment extends Fragment {
         Log.d("Date: ", date);
         Log.d("Is arrival time: ", Boolean.toString(isArrivalTime));
 
-        if (mListener != null) {
+        if (mListener != null && !fromLocation.isEmpty() && !toLocation.isEmpty()) {
             Search search = new Search();
-            search.setFromStation(txtFromStation.getText().toString());
-            search.setToStation(txtToStation.getText().toString());
-            SimpleDateFormat dateFormatter = new SimpleDateFormat("yyy-MM-dd", Locale.getDefault());
-            search.setDate(dateFormatter.format(searchDate.getTime()));
-            search.setTime(btnTimePicker.getText().toString());
+            search.setFromStation(fromLocation);
+            search.setToStation(toLocation);
+            search.setDate(date);
+            search.setTime(time);
             search.setArrivalTime(isArrivalTime);
 
             mListener.onSearchStarted(search);
         }
+    }
+
+    public void onSwitchButtonPressed() {
+        // Get the values to switch
+        String fromLocation = txtFromStation.getText().toString();
+        String toLocation = txtToStation.getText().toString();
+
+        // Set new values without triggering the station dropdown
+        txtFromStation.setThreshold(1000);
+        txtFromStation.setText(toLocation);
+        txtFromStation.setThreshold(THRESHOLD);
+        txtToStation.setThreshold(1000);
+        txtToStation.setText(fromLocation);
+        txtToStation.setThreshold(THRESHOLD);
     }
 
     @Override
