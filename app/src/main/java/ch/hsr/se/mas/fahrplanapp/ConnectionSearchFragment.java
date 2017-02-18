@@ -13,12 +13,15 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TimePicker;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
+import ch.schoeb.opendatatransport.model.Connection;
 import ch.schoeb.opendatatransport.model.Station;
 
 
@@ -29,6 +32,7 @@ public class ConnectionSearchFragment extends Fragment {
     private TimePickerDialog connectionTimePickerDialog;
     private SimpleDateFormat dateFormatter;
     private SimpleDateFormat timeFormatter;
+    private SimpleDateFormat searchDateFormatter;
     private DelayAutoCompleteTextView txtFromStation;
     private DelayAutoCompleteTextView txtToStation;
     private static final int THRESHOLD = 2;
@@ -38,6 +42,8 @@ public class ConnectionSearchFragment extends Fragment {
     Button btnDatePicker;
     Button btnTimePicker;
     ImageButton btnSwitch;
+    ImageButton btnEarlierConnections;
+    ImageButton btnLaterConnections;
 
     private ConnectionSearchFragmentInteractionListener mListener;
 
@@ -53,6 +59,7 @@ public class ConnectionSearchFragment extends Fragment {
         // Initialize the date- and time-picker to store the selected time and date
         dateFormatter = new SimpleDateFormat(getString(R.string.date_format), Locale.getDefault());
         timeFormatter = new SimpleDateFormat(getString(R.string.time_format), Locale.getDefault());
+        searchDateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
         connectionDatePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
 
@@ -103,6 +110,22 @@ public class ConnectionSearchFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 onSwitchButtonPressed();
+            }
+        });
+
+        btnEarlierConnections = (ImageButton) view.findViewById(R.id.button_earlier_connections);
+        btnEarlierConnections.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onEarlierConnectionsButtonPressed();
+            }
+        });
+
+        btnLaterConnections = (ImageButton) view.findViewById(R.id.button_later_connections);
+        btnLaterConnections.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onLaterConnectionsButtonPressed();
             }
         });
 
@@ -180,12 +203,79 @@ public class ConnectionSearchFragment extends Fragment {
     }
 
     public void onSearchButtonPressed() {
-        SimpleDateFormat searchDateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String fromLocation = txtFromStation.getText().toString();
         String toLocation = txtToStation.getText().toString();
         String time = timeFormatter.format(searchDate.getTime());
         String date = searchDateFormatter.format(searchDate.getTime());
 
+        // Start the search with the parameters the user has set
+        startConnectionSearch(fromLocation, toLocation, date, time, isArrivalTime);
+    }
+
+    public void onEarlierConnectionsButtonPressed() {
+        ListView viewConnections = (ListView) getActivity().findViewById(R.id.fragment_search_results);
+        int count = viewConnections.getAdapter().getCount();
+        if (count > 0) {
+            // Get latest shown connection to have a reference for the later search
+            Date arrival = searchDate.getTime();
+            for (int i = 0; i < count; i++) {
+                Connection connection = (Connection) viewConnections.getAdapter().getItem(i);
+                Date tempDate = new Date(Long.parseLong(connection.getTo().getArrivalTimestamp())*1000);
+                if (tempDate.before(arrival)) {
+                    arrival = tempDate;
+                }
+            }
+
+            // Create a copy of the original calendar to set time for later connection search
+            Calendar earlierDate = Calendar.getInstance(searchDate.getTimeZone());
+            earlierDate.setTime(arrival);
+            earlierDate.add(Calendar.MINUTE, -1);
+
+            // Prepare and get values for the search
+            String fromLocation = txtFromStation.getText().toString();
+            String toLocation = txtToStation.getText().toString();
+            String time = timeFormatter.format(earlierDate.getTime());
+            String date = searchDateFormatter.format(earlierDate.getTime());
+
+            // Start the search with the parameters the user has set
+            startConnectionSearch(fromLocation, toLocation, date, time, true);
+        }
+    }
+
+    public void onLaterConnectionsButtonPressed() {
+        ListView viewConnections = (ListView) getActivity().findViewById(R.id.fragment_search_results);
+        int count = viewConnections.getAdapter().getCount();
+        if (count > 0) {
+            // Get latest shown connection to have a reference for the later search
+            Date departure = searchDate.getTime();
+            for (int i = 0; i < count; i++) {
+                Connection connection = (Connection) viewConnections.getAdapter().getItem(i);
+                Date tempDate = new Date(connection.getFrom().getDepartureTimestamp().longValue()*1000);
+                if (tempDate.after(departure)) {
+                    departure = tempDate;
+                }
+            }
+
+            // Create a copy of the original calendar to set time for later connection search
+            Calendar laterDate = Calendar.getInstance(searchDate.getTimeZone());
+            laterDate.setTime(departure);
+            laterDate.add(Calendar.MINUTE, 1);
+
+            // Prepare and get values for the search
+            String fromLocation = txtFromStation.getText().toString();
+            String toLocation = txtToStation.getText().toString();
+            String time = timeFormatter.format(laterDate.getTime());
+            String date = searchDateFormatter.format(laterDate.getTime());
+
+            // Start the search with the parameters the user has set
+            startConnectionSearch(fromLocation, toLocation, date, time, false);
+        }
+    }
+
+
+
+    private void startConnectionSearch(String fromLocation, String toLocation, String date,
+                                       String time, boolean isArrivalTime) {
         Log.d("From: ", fromLocation);
         Log.d("To: ", toLocation);
         Log.d("Time: ", time);

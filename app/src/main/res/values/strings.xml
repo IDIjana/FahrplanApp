@@ -26,4 +26,6 @@
     <string name="search_hint_to">To</string>
     <string name="search_in_progress">Loading connections…</string>
     <string name="tooltip_switch_stations">Switch stations</string>
+    <string name="search_earlier_connections">Search earlier connections</string>
+    <string name="search_later_connections">Search later connections</string>
 </resources>

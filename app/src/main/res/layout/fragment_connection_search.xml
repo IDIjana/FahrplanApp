@@ -123,14 +123,35 @@
 
     </LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/button_search"
-        android:id="@+id/button_search"
+        android:orientation="horizontal"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:drawableStart="@drawable/ic_button_search"
-        android:layout_below="@id/connection_search_options"/>
+        android:layout_below="@id/connection_search_options">
 
+        <ImageButton
+            android:id="@+id/button_earlier_connections"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_earlier_connections"
+            android:contentDescription="@string/search_earlier_connections"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/button_search"
+            android:id="@+id/button_search"
+            android:drawableStart="@drawable/ic_button_search"/>
+
+        <ImageButton
+            android:id="@+id/button_later_connections"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_later_connections"
+            android:contentDescription="@string/search_later_connections"/>
+
+    </LinearLayout>
 </RelativeLayout>

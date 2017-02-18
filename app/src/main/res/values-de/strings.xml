@@ -23,4 +23,6 @@
     <string name="search_hint_to">Nach</string>
     <string name="search_in_progress">Lade Verbindungen…</string>
     <string name="tooltip_switch_stations">Stationen tauschen</string>
+    <string name="search_earlier_connections">Frühere Verbindungen suchen</string>
+    <string name="search_later_connections">Spätere Verbindungen suchen</string>
 </resources>
