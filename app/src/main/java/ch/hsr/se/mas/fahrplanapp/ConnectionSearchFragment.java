@@ -3,6 +3,7 @@ package ch.hsr.se.mas.fahrplanapp;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -24,7 +25,6 @@ import java.util.Locale;
 import ch.schoeb.opendatatransport.model.Connection;
 import ch.schoeb.opendatatransport.model.Station;
 
-
 public class ConnectionSearchFragment extends Fragment {
     private Calendar searchDate;
     private boolean isArrivalTime;
@@ -44,6 +44,7 @@ public class ConnectionSearchFragment extends Fragment {
     ImageButton btnSwitch;
     ImageButton btnEarlierConnections;
     ImageButton btnLaterConnections;
+    ImageButton btnNearestStationFrom;
 
     private ConnectionSearchFragmentInteractionListener mListener;
 
@@ -113,6 +114,14 @@ public class ConnectionSearchFragment extends Fragment {
             }
         });
 
+        btnNearestStationFrom = (ImageButton) view.findViewById(R.id.button_nearest_station_from);
+        btnNearestStationFrom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onNearestStationButtonPressed(v);
+            }
+        });
+
         btnEarlierConnections = (ImageButton) view.findViewById(R.id.button_earlier_connections);
         btnEarlierConnections.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,9 +165,7 @@ public class ConnectionSearchFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Station station = (Station) adapterView.getItemAtPosition(position);
-                txtFromStation.setThreshold(1000);
-                txtFromStation.setText(station.getName());
-                txtFromStation.setThreshold(THRESHOLD);
+                txtFromStation.setTextWithoutSearch(station.getName());
             }
         });
 
@@ -170,9 +177,7 @@ public class ConnectionSearchFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Station station = (Station) adapterView.getItemAtPosition(position);
-                txtToStation.setThreshold(1000);
-                txtToStation.setText(station.getName());
-                txtToStation.setThreshold(THRESHOLD);
+                txtToStation.setTextWithoutSearch(station.getName());
             }
         });
 
@@ -272,8 +277,6 @@ public class ConnectionSearchFragment extends Fragment {
         }
     }
 
-
-
     private void startConnectionSearch(String fromLocation, String toLocation, String date,
                                        String time, boolean isArrivalTime) {
         Log.d("From: ", fromLocation);
@@ -308,6 +311,24 @@ public class ConnectionSearchFragment extends Fragment {
         txtToStation.setThreshold(THRESHOLD);
     }
 
+    public void onNearestStationButtonPressed(View v) {
+        DelayAutoCompleteTextView textView = null;
+        switch (v.getId()) {
+            case R.id.button_nearest_station_from:
+                textView = txtFromStation;
+                break;
+            case R.id.about:
+                textView = txtToStation;
+                break;
+            default:
+                break;
+        }
+
+        if (mListener != null) {
+            mListener.onNearestLocationSearchStarted(textView);
+        }
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -327,5 +348,6 @@ public class ConnectionSearchFragment extends Fragment {
 
     public interface ConnectionSearchFragmentInteractionListener {
         void onSearchStarted(Search search);
+        void onNearestLocationSearchStarted(DelayAutoCompleteTextView textView);
     }
 }

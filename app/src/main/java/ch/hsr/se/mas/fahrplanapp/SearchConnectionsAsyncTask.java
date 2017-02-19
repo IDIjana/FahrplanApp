@@ -16,7 +16,7 @@ public class SearchConnectionsAsyncTask extends AsyncTask<Void, Void, Connection
     private Search search;
     private Context context;
 
-    protected ProgressDialog progressDialog;
+    private ProgressDialog progressDialog;
 
     public SearchConnectionsAsyncTask(Context context, Search search) {
         super();
@@ -44,7 +44,7 @@ public class SearchConnectionsAsyncTask extends AsyncTask<Void, Void, Connection
     {
         super.onPreExecute();
         progressDialog = new ProgressDialog(this.context);
-        progressDialog.setMessage(((Activity) this.context).getString(R.string.search_in_progress));
+        progressDialog.setMessage(this.context.getString(R.string.search_in_progress));
         progressDialog.show();
     }
 

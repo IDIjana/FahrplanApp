@@ -39,6 +39,13 @@ public class DelayAutoCompleteTextView extends AutoCompleteTextView {
         loadingIndicator = progressBar;
     }
 
+    public void setTextWithoutSearch(String text) {
+        int oldThreshold = this.getThreshold();
+        this.setThreshold(1000);
+        this.setText(text);
+        this.setThreshold(oldThreshold);
+    }
+
     @Override
     protected void performFiltering(CharSequence text, int keyCode) {
         if (loadingIndicator != null) {

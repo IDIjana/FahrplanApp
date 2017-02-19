@@ -20,6 +20,15 @@
             android:src="@drawable/ic_button_switch"
             android:contentDescription="@string/tooltip_switch_stations" />
 
+        <ImageButton
+            android:id="@+id/button_nearest_station_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_button_nearest_station"
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="@string/tooltip_switch_stations" />
+
         <FrameLayout
             android:id="@+id/autocomplete_from"
             android:layout_width="wrap_content"

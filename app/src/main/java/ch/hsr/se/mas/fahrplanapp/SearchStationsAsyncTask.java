@@ -28,7 +28,7 @@ public class SearchStationsAsyncTask extends AsyncTask<String, Void, StationList
 
     @Override
     protected void onPostExecute(StationList stationList) {
-        //Log.d("StationList:", stationList.toString());
-        //Log.d("Count:", String.valueOf(stationList.getStations().size()));
+        Log.d("StationList:", stationList.toString());
+        Log.d("Count:", String.valueOf(stationList.getStations().size()));
     }
 }
