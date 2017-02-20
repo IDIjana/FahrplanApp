@@ -26,6 +26,22 @@ public class LocalOpenTransportRepository implements IOpenTransportRepository {
     }
 
     @Override
+    public StationList findStations(double latitude, double longitude) {
+        ArrayList<Station> stations = new ArrayList<>();
+
+        for (int i = 0; i < 5; i++) {
+            Station station = new Station();
+            stations.add(station);
+        }
+
+        waitRandomTime();
+
+        StationList list = new StationList();
+        list.setStations(stations);
+        return list;
+    }
+
+    @Override
     public ConnectionList searchConnections(String from, String to) {
         return searchConnections(from, to, null, null, null, false);
     }
