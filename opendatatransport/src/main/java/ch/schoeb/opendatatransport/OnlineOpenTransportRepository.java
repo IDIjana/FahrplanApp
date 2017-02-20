@@ -34,6 +34,25 @@ public class OnlineOpenTransportRepository implements IOpenTransportRepository {
     }
 
     @Override
+    public StationList findStations(double latitude, double longitude) throws OpenDataTransportException {
+        String url = buildFindStationsUrl(latitude, longitude);
+        String json = GetJson(url);
+
+        Gson gson = new Gson();
+        return gson.fromJson(json, StationList.class);
+    }
+
+    private String buildFindStationsUrl(double latitude, double longitude) {
+        String url = null;
+        try {
+            url = "http://transport.opendata.ch/v1/locations?x=" + latitude + "&y=" + longitude;
+        } catch (Exception e) {
+        }
+
+        return url;
+    }
+
+    @Override
     public ConnectionList searchConnections(String from, String to) throws OpenDataTransportException {
         return searchConnections(from, to, null, null, null, false);
     }
