@@ -1,7 +1,6 @@
 package ch.hsr.se.mas.fahrplanapp;
 
-
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import java.io.IOException;
 import android.view.LayoutInflater;
@@ -16,7 +15,7 @@ import android.widget.Button;
  * Created by Hermann on 21.02.2017.
  */
 
-public class SettingsFragment extends Fragment {
+public class SettingsFragment extends AppCompatActivity {
 
         Settings set1;
         View view;
