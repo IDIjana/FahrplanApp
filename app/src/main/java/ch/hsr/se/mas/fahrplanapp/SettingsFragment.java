@@ -20,21 +20,21 @@ public class SettingsFragment extends Fragment {
 
         Settings set1;
         View view;
+        CheckBox  checkTrain, checkTram, checkBus, checkCableCar, checkShip;
 
-        public View onCreateSettingsView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) throws IOException, ClassNotFoundException {
+         public SettingsFragment() throws IOException, ClassNotFoundException{
+             set1=new Settings();
+
+         }
+
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)  {
             view = inflater.inflate(R.layout.fragment_settings, container, false);
-            set1 = new Settings();
 
-                CheckBox checkTrain = (CheckBox) view.findViewById(R.id.cbxtrain);
-                checkTrain.setChecked(set1.containstransp(Transportation.TRAIN));
-                CheckBox checkTram = (CheckBox) view.findViewById(R.id.cbxtram);
-                checkTram.setChecked(set1.containstransp(Transportation.TRAM));
-                CheckBox checkBus = (CheckBox) view.findViewById(R.id.cbxbus);
-                checkBus.setChecked(set1.containstransp(Transportation.BUS));
-                CheckBox checkCableCar = (CheckBox) view.findViewById(R.id.cbxcablecar);
-                checkBus.setChecked(set1.containstransp(Transportation.CABLECAR));
-                CheckBox checkShip = (CheckBox) view.findViewById(R.id.cbxcablecar);
-                checkBus.setChecked(set1.containstransp(Transportation.SHIP));
+                fillCheckbox(checkTrain, R.id.cbxtrain, Transportation.TRAIN);
+                fillCheckbox(checkTram, R.id.cbxtram, Transportation.TRAM);
+                fillCheckbox(checkBus, R.id.cbxbus, Transportation.BUS);
+                fillCheckbox(checkShip, R.id.cbxship, Transportation.SHIP);
+                fillCheckbox(checkCableCar, R.id.cbxcablecar, Transportation.CABLECAR);
                 Switch classSwitch = (Switch) view.findViewById(R.id.selectclass);
                 classSwitch.setChecked(set1.getClasse()==1);
                 EditText homeStation = (EditText) view.findViewById(R.id.takemehome);
@@ -44,10 +44,14 @@ public class SettingsFragment extends Fragment {
                 public void onClick(View v) {
                     EditText homeStation = (EditText) view.findViewById(R.id.takemehome);
                     set1.setHome(homeStation.getText().toString());
-                    set1.serializeSettings();
-                }
+                    set1.serializeSettings();}
             });
+
             return view;
+        }
+        private void fillCheckbox(CheckBox in, int id, Transportation transp){
+            in = (CheckBox) view.findViewById(id);
+            in.setChecked(set1.containstransp(transp));
         }
 
     public void onCheckboxClicked(View view) {
