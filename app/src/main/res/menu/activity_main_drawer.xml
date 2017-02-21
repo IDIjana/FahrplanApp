@@ -4,6 +4,14 @@
         android:id="@+id/directions"
         android:icon="@drawable/ic_menu_connections"
         android:title="@string/connections" />
+
+    <!--
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/ic_menu_settings"
+        android:title="@string/action_settings" />
+        -->
+
     <item
         android:id="@+id/about"
         android:icon="@drawable/ic_menu_about"

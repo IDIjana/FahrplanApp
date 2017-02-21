@@ -88,11 +88,9 @@ public class MainActivity extends AppCompatActivity
         switch (item.getItemId()) {
             case R.id.action_settings:
                 return true;
-
-            case R.id.action_connections:
-                Intent intent = new Intent(this, MainActivity.class);
+            case R.id.action_about:
+                Intent intent = new Intent(this, AboutActivity.class);
                 startActivity(intent);
-
             default:
                 return super.onOptionsItemSelected(item);
         }

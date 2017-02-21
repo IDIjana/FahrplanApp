@@ -25,4 +25,5 @@
     <string name="tooltip_switch_stations">Stationen tauschen</string>
     <string name="search_earlier_connections">Frühere Verbindungen suchen</string>
     <string name="search_later_connections">Spätere Verbindungen suchen</string>
+    <string name="get_nearest_station">Suche nächste Station</string>
 </resources>

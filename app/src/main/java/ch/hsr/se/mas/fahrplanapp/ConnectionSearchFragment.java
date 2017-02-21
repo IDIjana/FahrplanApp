@@ -44,6 +44,7 @@ public class ConnectionSearchFragment extends Fragment {
     ImageButton btnEarlierConnections;
     ImageButton btnLaterConnections;
     ImageButton btnNearestStationFrom;
+    ImageButton btnNearestStationTo;
 
     private ConnectionSearchFragmentInteractionListener mListener;
 
@@ -115,6 +116,14 @@ public class ConnectionSearchFragment extends Fragment {
 
         btnNearestStationFrom = (ImageButton) view.findViewById(R.id.button_nearest_station_from);
         btnNearestStationFrom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onNearestStationButtonPressed(v);
+            }
+        });
+
+        btnNearestStationTo = (ImageButton) view.findViewById(R.id.button_nearest_station_to);
+        btnNearestStationTo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onNearestStationButtonPressed(v);
@@ -316,7 +325,7 @@ public class ConnectionSearchFragment extends Fragment {
             case R.id.button_nearest_station_from:
                 textView = txtFromStation;
                 break;
-            case R.id.about:
+            case R.id.button_nearest_station_to:
                 textView = txtToStation;
                 break;
             default:
