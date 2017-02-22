@@ -1,62 +1,137 @@
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ch.hsr.se.mas.fahrplanapp.ConnectionOverviewFragment">
 
 
-    <TableRow
-        android:id="@+id/connection"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/productIcon"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:stretchColumns="*"
-        android:paddingBottom="5sp"
-        android:paddingTop="5sp">
+        android:layout_alignParentLeft="true"
+        />
 
-        <TextView
-        android:id="@+id/from"
+    <TextView
+        android:id="@+id/product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/productIcon"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/direction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:layout_marginStart="20sp"
+        android:layout_toRightOf="@id/product"
         android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/pfeil"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="16sp"
-            android:layout_gravity="center"
-            android:text="-->"/>
+    <TextView
+        android:id="@+id/from"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/product"
+        android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/to"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="16sp" />
-    </TableRow>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/product"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        />
 
+    <TextView
+        android:id="@+id/to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/product"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/from"
+        android:textSize="16sp" />
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/from"
+        android:layout_weight="1"
+        android:text="---->"
+        android:textAlignment="center"
+        />
+
+    <TextView
+        android:id="@+id/end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/from"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/platform"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/start"
+        android:textSize="16sp" />
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/start"
+>
     <TableRow>
-        <TextView
-            android:id="@+id/start"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="16sp" />
-        <TextView
-            android:id="@+id/duration"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="16sp" />
-        <TextView
-            android:id="@+id/end"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="16sp" />
-    </TableRow>
+    <TextView
+        android:id="@+id/class1Desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1. Kl."
+        android:textSize="16sp" />
 
+    <ImageView
+        android:id="@+id/class1"
+        android:layout_width="24dp"
+         android:layout_height="wrap_content" />
 
-</TableLayout>
+     <TextView
+         android:id="@+id/class2Desc"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="2. Kl."
+         android:textSize="16sp" />
+
+     <ImageView
+         android:id="@+id/class2"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content" />
+     </TableRow>
+     </TableLayout>
+    <TextView
+        android:id="@+id/delay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/start"
+        android:layout_alignParentRight="true"
+        android:textSize="16sp"
+        android:textColor="#ef0505"/>
+    <TextView
+        android:id="@+id/duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/start"
+        android:layout_toLeftOf="@id/delay"
+        android:textSize="16sp" />
+
+ </RelativeLayout>
