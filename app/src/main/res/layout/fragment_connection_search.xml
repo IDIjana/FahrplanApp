@@ -89,7 +89,9 @@
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_button_nearest_station"
                 android:background="?android:attr/selectableItemBackground"
-                android:contentDescription="@string/get_nearest_station" />
+                android:contentDescription="@string/get_nearest_station"
+                android:clickable="false"
+                android:visibility="invisible"/>
 
             <FrameLayout
                 android:id="@+id/autocomplete_to"
