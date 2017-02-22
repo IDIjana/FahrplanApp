@@ -26,4 +26,10 @@
     <string name="search_earlier_connections">Frühere Verbindungen suchen</string>
     <string name="search_later_connections">Spätere Verbindungen suchen</string>
     <string name="get_nearest_station">Suche nächste Station</string>
+
+    <string name="platform">Gl.</string>
+    <string name="direction">Richtung</string>
+    <string name="transportation">Verkehrsmittel</string>
+    <string name="first_class">1. Kl</string>
+    <string name="second_class">2. Kl</string>
 </resources>

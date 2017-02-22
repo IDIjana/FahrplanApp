@@ -55,10 +55,12 @@ public class ConnectionOverviewAdapter extends BaseAdapter {
 
         if (connection.getSections().get(0).getJourney() != null) {
             TextView txtTransport = (TextView) view.findViewById(R.id.product);
-            txtTransport.setText((String) connection.getSections().get(0).getJourney().getName());
+            txtTransport.setText(connection.getSections().get(0).getJourney().getName());
 
             TextView txtDirection = (TextView) view.findViewById(R.id.direction);
-            txtDirection.setText("Richtung " + (String) connection.getSections().get(0).getJourney().getTo());
+            String direction = this.context.getString(R.string.direction) + " " +
+                    connection.getSections().get(0).getJourney().getTo();
+            txtDirection.setText(direction);
         }
 
         TextView txtTo = (TextView) view.findViewById(R.id.to);
@@ -81,72 +83,62 @@ public class ConnectionOverviewAdapter extends BaseAdapter {
         duration = duration.substring(0, duration.length() - 3);
         txtDuration.setText(duration);
 
-        TextView txtPlattform = (TextView) view.findViewById(R.id.platform);
-        if (connection.getFrom().getPlatform() != null) {
-            txtPlattform.setText("Gl. " + (String) connection.getFrom().getPlatform());
+        TextView txtPlatform = (TextView) view.findViewById(R.id.platform);
+        if (connection.getFrom().getPlatform() != null && !connection.getFrom().getPlatform().isEmpty()) {
+            String platform = this.context.getString(R.string.platform) + " " + connection.getFrom().getPlatform();
+            txtPlatform.setText(platform);
         }
 
-
-        ImageView imgCapaFirstClass = (ImageView) view.findViewById(R.id.class1);
-
-        Drawable drawCapaFristClass;
-
-
-        int capaFirst = 0;
+        int capacityFirst = 0;
         if (connection.getCapacity1st() != null)
-            capaFirst = connection.getCapacity1st().intValue();
+            capacityFirst = connection.getCapacity1st().intValue();
 
-        switch (capaFirst) {
+        Drawable drawCapacityFirstClass;
+        switch (capacityFirst) {
             case 1:
-                drawCapaFristClass = context.getResources().getDrawable(R.drawable.ic_capacity_low, null);
+                drawCapacityFirstClass = context.getResources().getDrawable(R.drawable.ic_capacity_low, null);
                 break;
             case 2:
-                drawCapaFristClass = context.getResources().getDrawable(R.drawable.ic_capacity_medium, null);
+                drawCapacityFirstClass = context.getResources().getDrawable(R.drawable.ic_capacity_medium, null);
                 break;
             case 3:
-                drawCapaFristClass = context.getResources().getDrawable(R.drawable.ic_capacity_high, null);
+                drawCapacityFirstClass = context.getResources().getDrawable(R.drawable.ic_capacity_high, null);
                 break;
             default:
-                drawCapaFristClass=null;
+                drawCapacityFirstClass = context.getResources().getDrawable(R.drawable.ic_capacity_unknown, null);
                 break;
         }
-        imgCapaFirstClass.setImageDrawable(drawCapaFristClass);
+        ImageView imgCapacityFirstClass = (ImageView) view.findViewById(R.id.class1);
+        imgCapacityFirstClass.setImageDrawable(drawCapacityFirstClass);
 
-
-        ImageView imgCapaSecondClass = (ImageView) view.findViewById(R.id.class2);
-        Drawable drawCapaSecondClass;
-
-        int capaSecond = 0;
+        int capacitySecond = 0;
         if (connection.getCapacity2nd() != null)
-            capaSecond = connection.getCapacity2nd().intValue();
+            capacitySecond = connection.getCapacity2nd().intValue();
 
-        switch (capaSecond) {
+        Drawable drawCapacitySecondClass;
+        switch (capacitySecond) {
             case 1:
-                drawCapaSecondClass = context.getResources().getDrawable(R.drawable.ic_capacity_low, null);
+                drawCapacitySecondClass = context.getResources().getDrawable(R.drawable.ic_capacity_low, null);
                 break;
             case 2:
-                drawCapaSecondClass = context.getResources().getDrawable(R.drawable.ic_capacity_medium, null);
+                drawCapacitySecondClass = context.getResources().getDrawable(R.drawable.ic_capacity_medium, null);
                 break;
             case 3:
-                drawCapaSecondClass = context.getResources().getDrawable(R.drawable.ic_capacity_high, null);
+                drawCapacitySecondClass = context.getResources().getDrawable(R.drawable.ic_capacity_high, null);
                 break;
             default:
-                drawCapaSecondClass=null;
+                drawCapacitySecondClass = context.getResources().getDrawable(R.drawable.ic_capacity_unknown, null);
                 break;
         }
-        imgCapaSecondClass.setImageDrawable(drawCapaSecondClass);
-
-
-        ImageView imgProduct = (ImageView) view.findViewById(R.id.productIcon);
-
-        Drawable drawProduct;
-
+        ImageView imgCapacitySecondClass = (ImageView) view.findViewById(R.id.class2);
+        imgCapacitySecondClass.setImageDrawable(drawCapacitySecondClass);
 
         String cat = "";
         if (connection.getSections().get(0).getJourney() != null) {
             cat = connection.getSections().get(0).getJourney().getCategoryCode();
         }
 
+        Drawable drawProduct;
         switch (cat) {
             case "4":
                 drawProduct = context.getResources().getDrawable(R.drawable.ic_boat, null);
@@ -154,18 +146,23 @@ public class ConnectionOverviewAdapter extends BaseAdapter {
             case "6":
                 drawProduct = context.getResources().getDrawable(R.drawable.ic_bus, null);
                 break;
-            case "3":
-                drawProduct = context.getResources().getDrawable(R.drawable.ic_train, null);
+            case "7":
+                drawProduct = context.getResources().getDrawable(R.drawable.ic_tram, null);
+                break;
+            case "9":
+                drawProduct = context.getResources().getDrawable(R.drawable.ic_subway, null);
                 break;
             default:
                 drawProduct = context.getResources().getDrawable(R.drawable.ic_train, null);
                 break;
         }
+        ImageView imgProduct = (ImageView) view.findViewById(R.id.productIcon);
         imgProduct.setImageDrawable(drawProduct);
 
         if(connection.getTo().getDelay()!=null) {
             TextView txtDelay = (TextView) view.findViewById(R.id.delay);
-            txtDelay.setText("+" + connection.getTo().getDelay());
+            String delay = "+" + connection.getTo().getDelay();
+            txtDelay.setText(delay);
         }
         return view;
     }

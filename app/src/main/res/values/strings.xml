@@ -29,4 +29,10 @@
     <string name="search_earlier_connections">Search earlier connections</string>
     <string name="search_later_connections">Search later connections</string>
     <string name="get_nearest_station">Search nearest station</string>
+
+    <string name="platform">Pl.</string>
+    <string name="direction">Direction</string>
+    <string name="transportation">Transportation</string>
+    <string name="first_class">1. Cl</string>
+    <string name="second_class">2. Cl</string>
 </resources>
