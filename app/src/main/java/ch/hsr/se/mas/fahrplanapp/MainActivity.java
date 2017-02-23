@@ -87,13 +87,15 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                return true;
-            case R.id.action_about:
-                Intent intent = new Intent(this, AboutActivity.class);
+                Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
-            default:
-                return super.onOptionsItemSelected(item);
+                break;
+            case R.id.action_about:
+                intent = new Intent(this, AboutActivity.class);
+                startActivity(intent);
+                break;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -103,6 +105,10 @@ public class MainActivity extends AppCompatActivity
         switch (id) {
             case R.id.directions:
                 Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.settings:
+                intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 break;
             case R.id.about:

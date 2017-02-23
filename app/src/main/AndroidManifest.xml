@@ -26,14 +26,24 @@
         </activity>
         <activity
             android:name=".AboutActivity"
-            android:label="About"
+            android:label="@string/about"
             android:parentActivityName="ch.hsr.se.mas.fahrplanapp.MainActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ch.hsr.se.mas.fahrplanapp.MainActivity" />
-            </activity>
+        </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/settings"
+            android:parentActivityName="ch.hsr.se.mas.fahrplanapp.MainActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ch.hsr.se.mas.fahrplanapp.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -82,22 +82,20 @@
             android:layout_toStartOf="@id/button_switch">
 
             <ImageButton
-                android:id="@+id/button_nearest_station_to"
+                android:id="@+id/button_take_me_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_button_nearest_station"
+                android:src="@drawable/ic_home"
                 android:background="?android:attr/selectableItemBackground"
-                android:contentDescription="@string/get_nearest_station"
-                android:clickable="false"
-                android:visibility="invisible"/>
+                android:contentDescription="@string/take_me_home" />
 
             <FrameLayout
                 android:id="@+id/autocomplete_to"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/button_nearest_station_to"
+                android:layout_toEndOf="@id/button_take_me_home"
                 android:layout_alignParentEnd="true"
                 android:layout_centerHorizontal="true">
 

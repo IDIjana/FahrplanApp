@@ -3,6 +3,7 @@ package ch.hsr.se.mas.fahrplanapp;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -24,6 +25,8 @@ import java.util.Locale;
 import ch.schoeb.opendatatransport.model.Connection;
 import ch.schoeb.opendatatransport.model.Station;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class ConnectionSearchFragment extends Fragment {
     private Calendar searchDate;
     private boolean isArrivalTime;
@@ -34,7 +37,6 @@ public class ConnectionSearchFragment extends Fragment {
     private SimpleDateFormat searchDateFormatter;
     private DelayAutoCompleteTextView txtFromStation;
     private DelayAutoCompleteTextView txtToStation;
-    private static final int THRESHOLD = 2;
 
     Button btnSearch;
     Button btnTimeReferenceSelection;
@@ -44,7 +46,7 @@ public class ConnectionSearchFragment extends Fragment {
     ImageButton btnEarlierConnections;
     ImageButton btnLaterConnections;
     ImageButton btnNearestStationFrom;
-    ImageButton btnNearestStationTo;
+    ImageButton btnTakeMeHome;
 
     private ConnectionSearchFragmentInteractionListener mListener;
 
@@ -118,15 +120,15 @@ public class ConnectionSearchFragment extends Fragment {
         btnNearestStationFrom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onNearestStationButtonPressed(v);
+                onNearestStationButtonPressed();
             }
         });
 
-        btnNearestStationTo = (ImageButton) view.findViewById(R.id.button_nearest_station_to);
-        btnNearestStationTo.setOnClickListener(new View.OnClickListener() {
+        btnTakeMeHome = (ImageButton) view.findViewById(R.id.button_take_me_home);
+        btnTakeMeHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onNearestStationButtonPressed(v);
+                onTakeMeHomeButtonPressed();
             }
         });
 
@@ -166,7 +168,7 @@ public class ConnectionSearchFragment extends Fragment {
 
         StationAutoCompleteAdapter adapter = new StationAutoCompleteAdapter(getContext());
         txtFromStation = (DelayAutoCompleteTextView) view.findViewById(R.id.text_from);
-        txtFromStation.setThreshold(THRESHOLD);
+        txtFromStation.setThreshold(Globals.SEARCH_THRESHOLD);
         txtFromStation.setAdapter(adapter);
         txtFromStation.setLoadingIndicator((android.widget.ProgressBar) view.findViewById(R.id.pb_loading_indicator_from));
         txtFromStation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -178,7 +180,7 @@ public class ConnectionSearchFragment extends Fragment {
         });
 
         txtToStation = (DelayAutoCompleteTextView) view.findViewById(R.id.text_to);
-        txtToStation.setThreshold(THRESHOLD);
+        txtToStation.setThreshold(Globals.SEARCH_THRESHOLD);
         txtToStation.setAdapter(adapter);
         txtToStation.setLoadingIndicator((android.widget.ProgressBar) view.findViewById(R.id.pb_loading_indicator_to));
         txtToStation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -311,30 +313,20 @@ public class ConnectionSearchFragment extends Fragment {
         String toLocation = txtToStation.getText().toString();
 
         // Set new values without triggering the station dropdown
-        txtFromStation.setThreshold(1000);
-        txtFromStation.setText(toLocation);
-        txtFromStation.setThreshold(THRESHOLD);
-        txtToStation.setThreshold(1000);
-        txtToStation.setText(fromLocation);
-        txtToStation.setThreshold(THRESHOLD);
+        txtFromStation.setTextWithoutSearch(toLocation);
+        txtToStation.setTextWithoutSearch(fromLocation);
     }
 
-    public void onNearestStationButtonPressed(View v) {
-        DelayAutoCompleteTextView textView = null;
-        switch (v.getId()) {
-            case R.id.button_nearest_station_from:
-                textView = txtFromStation;
-                break;
-            case R.id.button_nearest_station_to:
-                textView = txtToStation;
-                break;
-            default:
-                break;
-        }
-
+    public void onNearestStationButtonPressed() {
         if (mListener != null) {
-            mListener.onNearestLocationSearchStarted(textView);
+            mListener.onNearestLocationSearchStarted(txtFromStation);
         }
+    }
+
+    public void onTakeMeHomeButtonPressed() {
+        SharedPreferences settings = getActivity().getSharedPreferences(Globals.SETTINGS_NAME, MODE_PRIVATE);
+        String homeAddress = settings.getString(Globals.SETTINGS_HOME_ADDRESS, "");
+        txtToStation.setTextWithoutSearch(homeAddress);
     }
 
     @Override

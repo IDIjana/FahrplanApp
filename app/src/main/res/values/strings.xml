@@ -8,9 +8,9 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
     <string name="connections">Connections</string>
     <string name="about">About</string>
+    <string name="settings">Settings</string>
 
     <string name="tab_about_application">Application</string>
     <string name="tab_about_developers">Developers</string>
@@ -29,10 +29,14 @@
     <string name="search_earlier_connections">Search earlier connections</string>
     <string name="search_later_connections">Search later connections</string>
     <string name="get_nearest_station">Search nearest station</string>
+    <string name="take_me_home">Take me home</string>
 
     <string name="platform">Pl.</string>
     <string name="direction">Direction</string>
     <string name="transportation">Transportation</string>
     <string name="first_class">1. Cl</string>
     <string name="second_class">2. Cl</string>
+
+    <string name="home_address">Take-Me-Home Address</string>
+    <string name="hint_home_address">Home address</string>
 </resources>

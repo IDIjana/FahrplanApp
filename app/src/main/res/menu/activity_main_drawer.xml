@@ -5,12 +5,10 @@
         android:icon="@drawable/ic_menu_connections"
         android:title="@string/connections" />
 
-    <!--
     <item
         android:id="@+id/settings"
         android:icon="@drawable/ic_menu_settings"
-        android:title="@string/action_settings" />
-        -->
+        android:title="@string/settings" />
 
     <item
         android:id="@+id/about"

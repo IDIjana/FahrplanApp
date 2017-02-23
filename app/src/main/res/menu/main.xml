@@ -8,21 +8,10 @@
         android:title="@string/about"
         app:showAsAction="ifRoom" />
 
-    <!--
-    <item
-        android:id="@+id/action_connections"
-        android:icon="@drawable/ic_action_connections"
-        android:orderInCategory="1"
-        android:title="@string/connections"
-        app:showAsAction="ifRoom" />
-        -->
-
-    <!--
     <item
         android:id="@+id/action_settings"
         android:icon="@drawable/ic_action_settings"
         android:orderInCategory="2"
-        android:title="@string/action_settings"
+        android:title="@string/settings"
         app:showAsAction="ifRoom" />
-        -->
 </menu>
